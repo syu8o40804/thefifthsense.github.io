@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>THE FIFTH SENSE</title>
+    <link href="./css/reset.css" rel="stylesheet" />
+    <link href="./css/3-0.css" rel="stylesheet" />
+    <link href="./img/icon.png" rel="icon" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  </head>
+  <body>
+    <!--影片區塊開始-->
+    <div class="video-background-layer">
+      <video autoplay loop muted playsinline id="bg-video">
+        <source src="./video/Comp 1.mp4" type="video/mp4" />
+      </video>
+    </div>
+    <!--影片區塊結束-->
+    <!--內容區塊開始-->
+    <section id="page-select-cover" class="page active">
+      <div class="logo-container">
+        <img src="img/logo.png" alt="Logo" class="logo" />
+      </div>
+
+      <div class="progress-bar-container">
+        <img src="img/progressbar2.png" alt="Step 2" />
+      </div>
+
+      <div class="selection-title">
+        <h3>Pick Your CD Cover.</h3>
+
+        <p>請選擇你的唱片封面</p>
+      </div>
+
+      <!-- 輪播區 -->
+
+      <div class="carousel-container">
+        <button class="arrow-btn prev" onclick="changeOption(-1)">◀</button>
+
+        <div class="carousel-3d-wrapper" data-type="cover">
+          <div class="carousel-item">
+            <input type="radio" name="cover" id="sweet-cover" /><label
+              for="sweet-cover"
+              ><img src="./img/cover_cute.png" alt="Sweet"
+            /></label>
+          </div>
+
+          <div class="carousel-item">
+            <input type="radio" name="cover" id="hiphop-cover" /><label
+              for="hiphop-cover"
+              ><img src="./img/cover_hiphop.png" alt="Hiphop"
+            /></label>
+          </div>
+
+          <div class="carousel-item">
+            <input type="radio" name="cover" id="y3k-cover" /><label
+              for="y3k-cover"
+              ><img src="./img/cover_y3k.png" alt="y3k"
+            /></label>
+          </div>
+
+          <div class="carousel-item">
+            <input type="radio" name="cover" id="dark-cover" /><label
+              for="dark-cover"
+            >
+              <img src="./img/cover_dark.png" alt="Dark"
+            /></label>
+          </div>
+        </div>
+
+        <button class="arrow-btn next" onclick="changeOption(1)">▶</button>
+      </div>
+
+      <!-- 圓點指示器 -->
+
+      <div class="pagination-dots">
+        <div class="dot" onclick="jumpToOption(0)"></div>
+
+        <div class="dot" onclick="jumpToOption(1)"></div>
+
+        <div class="dot" onclick="jumpToOption(2)"></div>
+
+        <div class="dot" onclick="jumpToOption(3)"></div>
+      </div>
+      <p id="cover-warning" class="warning-text">-請先選擇一個CD cover-</p>
+      <button class="btn btn-secondary" id="next_btn_secondary">下一頁</button>
+    </section>
+    <!--內容區塊結束-->
+    <!--音效-->
+    <audio
+      id="startSound"
+      src="./audio/btn_sound_start.mp3"
+      preload="auto"
+      volume="0.5"
+    ></audio>
+    <audio
+      id="errorSound"
+      src="./audio/btn_sound_error.mp3"
+      preload="auto"
+      volume="0.5"
+    ></audio>
+
+    <!--連結 java script-->
+    <script src="./js/main.js"></script>
+    <script src="./js/animation.js"></script>
+    <script src="./js/choices.js"></script>
+    <script src="./js/soundeffect.js"></script>
+  </body>
+</html>
