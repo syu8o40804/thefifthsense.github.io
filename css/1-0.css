@@ -1,0 +1,208 @@
+/* 引入 Google Fonts: Noto Sans TC */
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&display=swap");
+
+/* ========================================================= */
+/* 1. 全域變數與基本設定 */
+/* ========================================================= */
+
+:root {
+  --primary-yellow: #e0fc45;
+  --primary-purple: #7a2cf3;
+  --primary-black: #000000;
+  --font-en: "Helvetica", sans-serif;
+  --font-zh: "Noto Sans TC", sans-serif;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--primary-black);
+  color: #ffffff;
+  font-family: var(--font-en), var(--font-zh);
+  overflow-x: hidden;
+
+  /* 確保字體平滑 */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ========================================================= */
+/* 2. 頁面切換架構 (SPA & MPA 共用) */
+/* ========================================================= */
+
+.page {
+  display: none; /* 預設隱藏所有頁面 */
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+
+  /* Flex 容器設定 */
+  flex-direction: column; /* 內容垂直排列 */
+  align-items: center; /* 內容水平置中 */
+  text-align: center;
+
+  /* ❗ 註：這個頁面沒有 justify-content，會讓內容從頂部開始排列 (flex-start) ❗ */
+}
+
+.page.active {
+  display: flex; /* 顯示當前活躍的頁面 */
+}
+
+.page.scrollable {
+  /* 適用於內容可能超出單螢幕高度的頁面 */
+  height: auto;
+  min-height: 100vh;
+  padding: 4.63vh 0;
+  justify-content: flex-start;
+}
+
+/* ========================================================= */
+/* 3. 背景影片設定 */
+/* ========================================================= */
+
+.video-background-layer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -99;
+  overflow: hidden;
+}
+
+#bg-video {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); /* 置中 */
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: cover;
+  opacity: 1;
+}
+
+/* ========================================================= */
+/* 4. Logo 專屬設定 */
+/* ========================================================= */
+
+/* 預設 Logo (當作 Flex 項目，但被 center-top 樣式覆蓋) */
+.logo-container {
+  /* ❗ 這裡的 position: relative; 和 top/left: auto 是為了讓 Logo 參與 Flex 佈局 ❗ */
+  position: absolute;
+  z-index: 50;
+  top: 46.3vh;
+  left: 50%;
+  transform: translateX(-50%);
+  /* 呼叫 HTML 裡的 SVG 濾鏡 */
+  filter: url(#black-to-transparent);
+}
+
+/* Logo 圖片尺寸 */
+.logo {
+  width: 24.22vw;
+  height: 29.48vh;
+}
+
+/* ========================================================= */
+/* 5. 通用排版設定 (Typography) */
+/* ========================================================= */
+
+h1 {
+  font-size: 3.125vw;
+  font-weight: bold;
+  margin: 0;
+}
+
+h2 {
+  font-size: 2.81vw;
+  font-weight: bold;
+  margin-bottom: 1.85vh;
+}
+
+h3 {
+  font-size: 1.875vw;
+  font-weight: bold;
+  margin-bottom: 0.93vh;
+}
+
+/* ========================================================= */
+/* 6. 按鈕基礎與長按鈕樣式 */
+/* ========================================================= */
+
+.btn {
+  /* 1. 尺寸與邊角 */
+  width: 9.27vw; /* 178px -> 9.27vw */
+  height: 7.22vh; /* 78px -> 7.22vh */
+  border-radius: 5.56vh; /* 60px -> 5.56vh */
+
+  /* 2. 定位 */
+  position: absolute;
+  bottom: 4.63vh; /* 50px -> 4.63vh */
+  left: 50%;
+  transform: translateX(-50%); /* 水平置中 */
+
+  /* 3. Flex 內容置中 */
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+
+  /* 4. 文字與效果 */
+  font-size: 1.46vw; /* 28px -> 1.46vw */
+  font-weight: bold;
+  cursor: pointer;
+  border: none;
+  transition: all 0.1s ease-in-out;
+  text-transform: uppercase;
+  z-index: 9999;
+  user-select: none;
+  border: 2px solid transparent;
+  box-sizing: border-box;
+
+  /* 字體微調 */
+  line-height: 1;
+  letter-spacing: 0;
+  padding: 0; /* 確保內距為 0 */
+  padding-top: 0.37vh; /* 4px -> 0.37vh */
+}
+
+/* 長文字按鈕樣式 (本頁使用) */
+.btn-wide {
+  background-color: var(--primary-yellow);
+  color: var(--primary-purple);
+  width: 20.83vw !important; /* 400px -> 20.83vw */
+  height: 7.22vh; /* 78px -> 7.22vh */
+  font-weight: bold;
+}
+
+.btn-wide:hover {
+  background-color: var(--primary-purple);
+  color: var(--primary-yellow);
+  box-shadow: 0 0 15px var(--primary-purple);
+}
+
+.btn-wide:active {
+  width: 18.5vw !important; /* 355px -> 18.50vw */
+  height: 6.67vh; /* 72px -> 6.67vh */
+  font-size: 1.25vw; /* 24px -> 1.25vw */
+  /* 保持按鈕在點擊時不水平移動 */
+}
+
+/* ========================================================= */
+/* 7. 介紹頁內容區塊 (.intro-content) */
+/* ========================================================= */
+
+/* 整體內容容器 */
+.intro-content {
+  max-width: 41.67vw; /* 限制最大寬度 */
+  padding: 0 1.04vw; /* 左右內邊距 */
+  margin: 12.04vh 0px 0px 0px; /* 將整個區塊推離上方 130px */
+}
+
+/* 內文區塊 */
+.text-block-middle {
+  font-size: 0.94vw;
+  line-height: 4.63vh; /* 行距設定 */
+  margin: 4.63vh 0px 0px 0px; /* 將內文推離上方標題 50px */
+}

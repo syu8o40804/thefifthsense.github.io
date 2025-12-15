@@ -1,0 +1,275 @@
+/* 引入 Google Fonts: Noto Sans TC */
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&display=swap");
+
+/* ========================================================= */
+/* 1. 全域變數與基本設定 */
+/* ========================================================= */
+
+:root {
+  --primary-yellow: #e0fc45;
+  --primary-purple: #7a2cf3;
+  --primary-black: #000000;
+  --font-en: "Helvetica", sans-serif;
+  --font-zh: "Noto Sans TC", sans-serif;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--primary-black);
+  color: #ffffff;
+  font-family: var(--font-en), var(--font-zh);
+  overflow-x: hidden;
+  /* 確保字體平滑 */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ========================================================= */
+/* 2. 頁面切換架構 (.page) */
+/* ========================================================= */
+
+.page {
+  display: none;
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+
+  /* Flex 容器設定 */
+  flex-direction: column; /* 內容垂直排列 */
+  align-items: center; /* 內容水平置中 */
+  justify-content: center; /* 頁面預設垂直置中 */
+  text-align: center;
+}
+
+.page.active {
+  display: flex;
+}
+
+.page.scrollable {
+  /* 結果頁專屬：允許內容滾動 */
+  height: auto;
+  min-height: 100vh;
+  padding: 4.63vh 0; /* 50px -> 4.63vh */
+  justify-content: flex-start; /* 內容從頂部開始排列 */
+}
+
+/* ========================================================= */
+/* 3. 背景影片設定 */
+/* ========================================================= */
+
+.video-background-layer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -99;
+  overflow: hidden;
+}
+
+#bg-video {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  min-width: 100%;
+  min-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: cover;
+  opacity: 1;
+}
+
+/* ========================================================= */
+/* 4. Logo 設定 */
+/* ========================================================= */
+
+.logo-container {
+  position: absolute; /* 絕對定位固定在左上角 */
+  top: 4.63vh; /* 50px -> 4.63vh */
+  left: 2.6vw; /* 50px -> 2.60vw */
+  z-index: 50;
+}
+
+.logo-container.center-top {
+  /* 用於置中 Logo 時的覆蓋樣式 */
+  position: relative;
+  top: 0;
+  left: 0;
+  margin-bottom: 2.78vh; /* 30px -> 2.78vh */
+}
+
+.logo {
+  width: 6.92vw; /* 132.9px -> 6.92vw */
+  height: 8.43vh; /* 91px -> 8.43vh */
+}
+
+/* ========================================================= */
+/* 5. 通用排版設定 (Typography) */
+/* ========================================================= */
+
+h1 {
+  font-size: 3.13vw; /* 60px -> 3.13vw */
+  font-weight: bold;
+  margin: 0;
+}
+
+h2 {
+  font-size: 2.81vw; /* 54px -> 2.81vw */
+  font-weight: bold;
+  margin-bottom: 1.85vh; /* 20px -> 1.85vh */
+}
+
+h3 {
+  font-size: 1.88vw; /* 36px -> 1.88vw */
+  font-weight: bold;
+  margin-bottom: 0.93vh; /* 10px -> 0.93vh */
+}
+
+p {
+  font-size: 1.04vw; /* 20px -> 1.04vw */
+  line-height: 1.5;
+  margin-bottom: 1.85vh; /* 20px -> 1.85vh */
+}
+
+/* ========================================================= */
+/* 6. 按鈕基礎與樣式一 (.btn-primary) */
+/* ========================================================= */
+
+.btn {
+  /* 1. 尺寸與邊角 */
+  width: 9.27vw; /* 178px -> 9.27vw */
+  height: 7.22vh; /* 78px -> 7.22vh */
+  border-radius: 5.56vh; /* 60px -> 5.56vh */
+
+  /* 2. 定位 */
+  margin-top: 0;
+  position: absolute; /* 絕對定位固定在底部 */
+  bottom: 4.63vh; /* 50px -> 4.63vh */
+  left: 50%;
+  transform: translateX(-50%); /* 水平置中 */
+  text-transform: uppercase;
+
+  /* 3. 文字樣式 */
+  font-size: 1.46vw; /* 28px -> 1.46vw */
+  font-weight: bold;
+  line-height: 1;
+  letter-spacing: 0;
+
+  /* 4. 基礎樣式與 Flex 內容置中 */
+  padding: 0;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  border: none;
+  transition: all 0.1s ease-in-out;
+  z-index: 9999;
+  user-select: none;
+  border: 0.1vw solid transparent; /* 2px -> 0.10vw */
+  padding-top: 0.37vh; /* 4px -> 0.37vh */
+}
+
+/* 樣式一：主要按鈕顏色 (用於「留個紀念」) */
+.btn-primary {
+  background-color: var(--primary-yellow);
+  color: var(--primary-purple);
+}
+
+.btn-primary:hover {
+  background-color: var(--primary-purple);
+  color: var(--primary-yellow);
+  box-shadow: 0 0 15px var(--primary-purple);
+}
+
+.btn-primary:active {
+  /* Active 狀態縮小效果 */
+  width: 8.96vw; /* 172px -> 8.96vw */
+  height: 6.67vh; /* 72px -> 6.67vh */
+  font-size: 1.25vw; /* 24px -> 1.25vw */
+  transform: translateX(-50%);
+}
+
+/* ========================================================= */
+/* 7. 結果頁 (6-0) 專屬區塊設定 */
+/* ========================================================= */
+
+/* 標題區塊 */
+.result-header {
+  margin: 15vh 0 0 0; /* 169px -> 15.65vh */
+}
+
+/* 最終 CD 圖片容器 (.cd-part) */
+.cd-part {
+  width: 77.92vw; /* 1496px -> 77.92vw */
+  height: 77.96vh; /* 842px -> 77.96vh */
+  position: relative;
+  margin: 0 auto;
+  overflow: visible; /* 讓掛飾可以超出去 */
+}
+
+/* 所有零件疊在裡面 */
+.cd-part img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  pointer-events: none;
+}
+
+/* 圖層順序 */
+#result-case-img {
+  z-index: 2;
+}
+#result-cover-img {
+  z-index: 1;
+}
+#result-sticker-img {
+  z-index: 3;
+}
+#result-keychain-img {
+  z-index: 4;
+}
+
+/* 推薦文字區塊 (We've got a song...) */
+.recommendation-text {
+  margin: 14.26vh 0 0 0; /* 154px -> 14.26vh */
+  font-weight: bold;
+}
+
+#recommendation-text-zh {
+  margin: 1.39vh 0 0 0; /* 15px -> 1.39vh */
+  font-size: 1.46vw; /* 28px -> 1.46vw */
+  font-weight: bold;
+}
+
+/* 歌曲資訊區塊 */
+.song-info {
+  margin: 9.63vh 20vw 0 20vw; /* 104px -> 9.63vh */
+}
+
+#result-song-title {
+  font-size: 1.46vw; /* 28px -> 1.46vw */
+  font-weight: bold;
+}
+
+#result-song-desc {
+  line-height: 3.24vh; /* 35px -> 3.24vh */
+}
+
+/* Spotify 內嵌區塊 */
+.spotify-embed {
+  width: 80%;
+  max-width: 36.46vw; /* 700px -> 36.46vw */
+
+  /* 距離上方文字 169px，底部間距 252px (推開按鈕) */
+  margin: 15vh auto 23.33vh auto; /* 169px -> 15.65vh, 252px -> 23.33vh */
+
+  border-radius: 12px;
+  overflow: hidden;
+}
+#result-song-desc {
+  white-space: pre-line;
+}
